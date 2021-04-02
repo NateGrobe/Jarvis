@@ -8,11 +8,10 @@ from os.path import expanduser
 @plugin("template")
 def template(jarvis, s):
     """
-    TODO: Path validation, windows support
+    TODO: windows support
     Creates project templates in the language specified
     template -l <language name> -n <project name> -p <path to project>
     """
-
     args = { 'lang': None, 'name': None, 'path': None }
 
     if s == "":
@@ -53,8 +52,15 @@ def template(jarvis, s):
                 new_arg = expanduser(input('Project path: '))
             
             args[key] = new_arg
+    
+    # continuse prompting for path until a valid one is given
+    while True:
+        if not os.path.exists(args['path']):
+            jarvis.say("Invalid path!", Fore.RED)
+            args['path'] = expanduser(input("Project path: "))
+        else:
+            break
 
-    # python template
     if args['lang'].lower() == 'python':
         python_template(args)
     elif args['lang'].lower() == 'java':
@@ -70,10 +76,11 @@ def template(jarvis, s):
 
     jarvis.say("Template created!", Fore.GREEN)
 
-
 # template for python
 def python_template(args):
-    py_template = """main():
+    py_template = """#!/usr/bin/env python3 
+    
+def main():
     pass
 
 if __name__ == '__main__':
