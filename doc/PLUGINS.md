@@ -17,7 +17,7 @@ from plugin import plugin
 
 @plugin("hello world")
 class hello_world:
-    """Prints \"hello world!\ d""""
+    """Prints \"hello world!\""""
     def __call__(self, jarvis, s):
         jarvis.say("Hello World!")
 ```

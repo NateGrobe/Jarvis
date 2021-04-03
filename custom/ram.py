@@ -2,10 +2,9 @@ from plugin import plugin
 import os
 import subprocess
 import numbers
-# import psutil
 
 @plugin("ram")
-def playMusic(jarvis, s): 
+def showRam(jarvis, s): 
 
     print()
     print("--------------------------------------------------")
@@ -14,7 +13,7 @@ def playMusic(jarvis, s):
     memory = reader.readline()
 
     memory = reader.readline()    
-    print("Total memory: ", end = '')
+    print("Total memory(kB): ", end = '')
     for i in range(len(memory)):
         if memory[i].isdigit():
             print(memory[i], end = '')
@@ -22,7 +21,7 @@ def playMusic(jarvis, s):
                 break
     print()
 
-    print("Used memory: ", end = '')
+    print("Used memory(kB): ", end = '')
     memory = reader.readline()
     for i in range(len(memory)):
         if memory[i].isdigit():
