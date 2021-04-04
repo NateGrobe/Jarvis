@@ -8,7 +8,6 @@ from os.path import expanduser
 @plugin("template")
 def template(jarvis, s):
     """
-    TODO: windows support
     Creates project templates in the language specified
     template -l <language name> -n <project name> -p <path to project>
     """
