@@ -29,30 +29,26 @@ def advice(jarvis, s):
                 "#   Ask Me Question And I Will Give You Advice  #\n" \
                 "# I Am Limited So Pick First Which Fits Context #\n" \
                 "#################################################\n"
-    question = ""
-    acceptable = 0
-    while not acceptable:
-        question = input("Ask Me A Question : ")
-        questionTmp = question.strip()
-        if len(questionTmp) > 0:
-            if questionTmp[len(questionTmp) - 1] == '?':
-                acceptable = 1
+
+    jarvis.say(greetings)
 
     while True:
-        randPos = random.randint(0, len(answers))
-        print(answers[randPos])
-        indicator = 0
+        question = input("Ask Me A Question: ").strip()
+        if len(question) > 0 and question[-1] == '?':
+            break
+
+    in_context = False
+    while not in_context:
+        # this line can generate an out of bound index
+        randPos = random.randint(0, len(answers) - 1)
+        jarvis.say(answers[randPos])
         while True:
             desire = input("Was This In Context? (Y/N) : ")
             if desire.strip().lower() == 'n':
-                print("Its A Pitty :( I'll Try Again!")
+                jarvis.say("Its A Pitty :( I'll Try Again!")
                 break
             elif desire.strip().lower() == 'y':
-                indicator = 1
-                print("Good To hear! Happy To Advice You!")
+                in_context = True
+                jarvis.say("Good To hear! Happy To Advise You!")
+                jarvis.say("Good Bye!")
                 break
-            else:
-                continue
-        if indicator == 1:
-            print("Good Bye!")
-            break
