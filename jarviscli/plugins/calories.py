@@ -2,7 +2,7 @@ from plugin import plugin
 
 
 @plugin("calories")
-class calories:
+class Calories:
     """
     Tells the recommended daily calorie intake, also recommends
     calories for weight add and loss.(Source 1)
@@ -24,11 +24,10 @@ class calories:
 
     def __call__(self, jarvis, s):
         jarvis.say("Welcome!")
-        info = input("Please enter the information about you following this order(gender age height(cms) weight(kg) workout level(1-4)): ")
+        info = input("Please enter the information about you following this order(gender age height(cms) weight(kg) workout level(1-4)): ").split()
         self.calories(jarvis, info)
 
-    def calories(self, jarvis, info):
-        strings = info.split()
+    def calories(self, jarvis, strings):
         if len(strings) == 5:
             gender = strings[0].lower()
             age = int(strings[1])
@@ -40,19 +39,19 @@ class calories:
             return None
 
         gender_no = 0
-        if(gender == "male" or gender == "man" or gender == "m"):
+        if gender == "male" or gender == "man" or gender == "m":
             gender_no = 5
-        elif(gender == "female" or gender == 'woman' or gender == "f"):
+        elif gender == "female" or gender == 'woman' or gender == "f":
             gender_no = -161
 
         if gender_no != 0 and age > 14 and height > 0.0 and weight > 0.0 and level > 0 and level < 5:
-            brm = float(10 * weight + 6.25 * height - 5
-                        * age + gender_no) * self.exercise_level(level)
-            brm_loss = brm - 500.0
-            brm_put_on = brm + 500.0
+            brm = int(float(10 * weight + 6.25 * height - 5 * age + gender_no) * self.exercise_level(level)*100)
+            brm = float(brm)/100
+            
             jarvis.say("Daily caloric intake :    " + str(brm))
-            jarvis.say("Loss weight calories :    " + str(brm_loss))
-            jarvis.say("Put on  weight calories : " + str(brm_put_on))
+            jarvis.say("Loss weight calories :    " + str(brm-500))
+            jarvis.say("Put on  weight calories : " + str(brm+500))
+            return brm
         else:
             jarvis.say("Please add correct input!")
             return None
