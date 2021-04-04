@@ -2,7 +2,7 @@ import unittest
 from tests import PluginTest
 from plugins.calories import Calories
 
-class caloriesTest(unittest.TestCase):
+class caloriesTest(PluginTest):
     """
         This class is testing the calories.py plugin
     """

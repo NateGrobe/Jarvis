@@ -1,11 +1,11 @@
 from colorama import Fore
-
 import speedtest as st
 from plugin import plugin, require
 
 
 @require(network=True)
 @plugin('speedtest')
+ 
 def speedtest(jarvis, s):
     """Runs a speedtest on your internet connection"""
     try:
@@ -26,7 +26,6 @@ def speedtest(jarvis, s):
     jarvis.say('Speed test results:', Fore.GREEN)
     jarvis.say('Download: ' + pretty_speed(download_speed), Fore.GREEN)
     jarvis.say('Upload: ' + pretty_speed(upload_speed), Fore.GREEN)
-
 
 def pretty_speed(speed):
     """ return speed value prettily accordingly in either bps, Kbps, Mbps, Gbps"""
