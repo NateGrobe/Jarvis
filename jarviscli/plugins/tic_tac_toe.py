@@ -5,11 +5,7 @@ board = {'7': '   ', '8': '   ', '9': '   ',
          '4': '   ', '5': '   ', '6': '   ',
          '1': '   ', '2': '   ', '3': '   '}
 
-board_keys = []
-
-for key in board:
-    board_keys.append(key)
-
+board_keys = [key for key in board]
 
 def restartBoard(board):
     for key in board_keys:
