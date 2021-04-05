@@ -35,7 +35,7 @@ class Calories:
             weight = float(strings[3])
             level = int(strings[4])
         else:
-            jarvis.say("You wrote less or more arguments than it needed.")
+            print("You wrote less or more arguments than it needed.")
             return None
 
         gender_no = 0
@@ -48,12 +48,12 @@ class Calories:
             brm = int(float(10 * weight + 6.25 * height - 5 * age + gender_no) * self.exercise_level(level)*100)
             brm = float(brm)/100
             
-            jarvis.say("Daily caloric intake :    " + str(brm))
-            jarvis.say("Loss weight calories :    " + str(brm-500))
-            jarvis.say("Put on  weight calories : " + str(brm+500))
+            print("Daily caloric intake :    ", str(brm))
+            print("Loss weight calories :    ", str(brm-500))
+            print("Put on  weight calories : ", str(brm+500))
             return brm
         else:
-            jarvis.say("Please add correct input!")
+            print("Please add correct input!")
             return None
 
     def exercise_level(self, level):

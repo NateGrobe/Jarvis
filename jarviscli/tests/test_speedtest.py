@@ -5,7 +5,7 @@ from plugins.speedtest import pretty_speed
 class testSpeedtest:
 
     def setUp(self):
-        self.test = self.load_plugin(Calories)
+        self.test = self.load_plugin(pretty_speed)
 
     def test_pretty_speed1(self):
         speed = 153490212075
@@ -22,7 +22,7 @@ class testSpeedtest:
         result = self.test.pretty_speed(speed)
         self.assertEqual(result, "14 bps")
 
-    def test_pretty_speed4(self)
+    def test_pretty_speed4(self):
         speed = 123490075
         result = self.test.pretty_speed(speed)
         self.assertEqual(result, "123.49 Mbps")
