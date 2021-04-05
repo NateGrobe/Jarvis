@@ -1,11 +1,11 @@
 import unittest
 from tests import PluginTest
-from plugins.speedtest import pretty_speed
+from plugins.speedtest import Speedtest 
 
-class testSpeedtest:
+class testSpeedtest(PluginTest):
 
     def setUp(self):
-        self.test = self.load_plugin(pretty_speed)
+        self.test = self.load_plugin(Speedtest)
 
     def test_pretty_speed1(self):
         speed = 153490212075
@@ -15,12 +15,12 @@ class testSpeedtest:
     def test_pretty_speed2(self):
         speed = 12349
         result = self.test.pretty_speed(speed)
-        self.assertEqual(result, "12.49 Kbps")
+        self.assertEqual(result, "12.35 Kbps")
     
     def test_pretty_speed3(self):
         speed = 14
         result = self.test.pretty_speed(speed)
-        self.assertEqual(result, "14 bps")
+        self.assertEqual(result, "14.00 bps")
 
     def test_pretty_speed4(self):
         speed = 123490075

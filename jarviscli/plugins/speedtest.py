@@ -5,34 +5,39 @@ from plugin import plugin, require
 
 @require(network=True)
 @plugin('speedtest')
- 
-def speedtest(jarvis, s):
-    """Runs a speedtest on your internet connection"""
-    try:
-        res = st.Speedtest()
-    except st.ConfigRetrievalError:
-        return jarvis.connection_error()
+class Speedtest: 
+    def __call__(self, jarvis, s):
+        jarvis.say("Welcome to Speedtest")
+        self.speedtest(jarvis, s)
 
-    # Create a spinner on command line to show that its running
-    jarvis.spinner_start('Running the test ')
 
-    res.get_best_server()
-    download_speed = res.download()
-    upload_speed = res.upload()
+    def speedtest(self, jarvis, s):
+        """Runs a speedtest on your internet connection"""
+        try:
+            res = st.Speedtest()
+        except st.ConfigRetrievalError:
+            return jarvis.connection_error()
 
-    jarvis.spinner_stop('')
+        # Create a spinner on command line to show that its running
+        jarvis.spinner_start('Running the test ')
 
-    # Print the results
-    jarvis.say('Speed test results:', Fore.GREEN)
-    jarvis.say('Download: ' + pretty_speed(download_speed), Fore.GREEN)
-    jarvis.say('Upload: ' + pretty_speed(upload_speed), Fore.GREEN)
+        res.get_best_server()
+        download_speed = res.download()
+        upload_speed = res.upload()
 
-def pretty_speed(speed):
-    """ return speed value prettily accordingly in either bps, Kbps, Mbps, Gbps"""
-    unit = 'bps'
-    kmg = ['', 'K', 'M', 'G']
-    i = 0
-    while speed >= 1000:
-        speed /= 1000
-        i += 1
-    return "{:.2f}".format(speed) + ' ' + kmg[i] + unit
+        jarvis.spinner_stop('')
+
+        # Print the results
+        jarvis.say('Speed test results:', Fore.GREEN)
+        jarvis.say('Download: ' + self.pretty_speed(download_speed), Fore.GREEN)
+        jarvis.say('Upload: ' + self.pretty_speed(upload_speed), Fore.GREEN)
+
+    def pretty_speed(self, speed):
+        """ return speed value prettily accordingly in either bps, Kbps, Mbps, Gbps"""
+        unit = 'bps'
+        kmg = ['', 'K', 'M', 'G']
+        i = 0
+        while speed >= 1000:
+            speed /= 1000
+            i += 1
+        return "{:.2f}".format(speed) + ' ' + kmg[i] + unit
