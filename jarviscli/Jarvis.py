@@ -8,6 +8,7 @@ import sys
 import tempfile
 from utilities.GeneralUtilities import print_say
 from CmdInterpreter import CmdInterpreter
+import random
 
 # register hist path
 HISTORY_FILENAME = tempfile.TemporaryFile('w+t')
@@ -42,6 +43,9 @@ class Jarvis(CmdInterpreter, object):
     first_reaction_text += "\n"
     first_reaction_text += Fore.BLUE + \
         "Type 'help' for a list of available actions." + Fore.RESET
+    first_reaction_text += "\n"
+    quotes = ['Sir, take a deep breath', 'You are not authorized to access this area.', 'Shall I store this on the Stark Industries\' central database?']
+    first_reaction_text += random.choice(quotes)
     first_reaction_text += "\n"
     prompt = (
         Fore.RED
