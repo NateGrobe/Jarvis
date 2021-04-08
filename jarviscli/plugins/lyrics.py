@@ -2,6 +2,7 @@
 import requests
 import bs4
 from plugin import plugin, require
+from azapi import AZlyrics
 
 # TODO: handle errors and instructions better
 
@@ -20,10 +21,6 @@ class lyrics():
     def __call__(self, jarvis, s):
         jarvis.say(self.find(s))
 
-    # info[0] = song
-    # info[1] = artist
-    # info[2] = either options or album, depending on how i extend the
-    # functionality
     def find(self, s):
         info = self.parse(s)
         # TODO: implement find album/song functions
@@ -32,16 +29,12 @@ class lyrics():
 
         artist = None
         song = None
-        album = None
 
         if info:
             song = info[0]
             info.pop(0)
         if info:
             artist = info[0]
-            info.pop(0)
-        if info:
-            album = info[0]
             info.pop(0)
         if not song or not artist:
             # error if artist or song don't exist
@@ -69,35 +62,10 @@ I just copied and fix the methods used in PyLyrics
 
 
 def get_lyric(singer, song):
-    # Replace spaces with _
-    singer = singer.replace(' ', '_')
-    song = song.replace(' ', '_')
-    url = 'http://lyrics.wikia.com/{0}:{1}'.format(singer, song)
-    req = requests.get(url)
-    s = bs4.BeautifulSoup(req.text, "lxml")
-    # Get main lyrics holder
-    lyrics = s.find("div", {'class': 'lyricbox'})
-    if lyrics is None:
-        return None
-    # Remove Scripts
-    [k.extract() for k in lyrics('script')]
-    # Remove comments
-    comments = lyrics.findAll(text=lambda text: isinstance(text, bs4.Comment))
-    # for c in comments:
-    #     c.extract()
-    # Remove unecessary tags
-    for tag in ['div', 'i', 'b', 'a']:
-        for match in lyrics.findAll(tag):
-            match.replaceWithChildren()
+    API = AZlyrics('google', accuracy=0.5)
+    API.artist = singer
+    API.title = song
+    API.getLyrics(save=True)
 
-    # TODO: check if you need the encode/decode thing, if you do then do a try
-    # catch for it
-
-    # get output as string and remove non unicode characters and replace <br> with newlines
-    # output = str(lyrics).encode('utf-8', errors = 'replace')[22:-6:] \
-    #     .decode('utf-8').replace('\n','').replace('<br/>','\n')
-    output = str(lyrics).replace('\n', '').replace('<br/>', '\n')[22:-6:]
-    try:
-        return output
-    except BaseException:
-        return output.encode('utf-8')
+    if API.lyrics:
+        return API.lyrics
