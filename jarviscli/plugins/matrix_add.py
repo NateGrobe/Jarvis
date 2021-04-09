@@ -33,8 +33,14 @@ def print_matrix(matrix, r, c):
     for i in range(r):
         print(matrix[i])
 
+def addition(initial, next_matrix, r, c):
+    for i in range(r):
+        for j in range(c):
+            initial[i][j] += next_matrix[i][j]
+    return initial        
 
-@plugin("matrix add")
+
+@plugin("matrix_add")
 def matrix_add(jarvis, s):
     jarvis.say("Sum of matrices with dimensions M x N", Fore.GREEN)
 
@@ -48,9 +54,7 @@ def matrix_add(jarvis, s):
         if next_decision.lower() == 'no':
             break
         next_matrix = get_matrix(jarvis, row, col)
-        for i in range(row):
-            for j in range(col):
-                initial[i][j] += next_matrix[i][j]
+        addition(initial, next_matrix, row, col)
         current_decision = jarvis.input("Print current sum matrix? ")
         if current_decision.lower() != 'no':
             print_matrix(initial, row, col)
