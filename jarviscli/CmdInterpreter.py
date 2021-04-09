@@ -4,7 +4,7 @@ import sys
 import traceback
 from cmd import Cmd
 from functools import partial
-
+import random
 from colorama import Fore
 
 from packages.memory.memory import Memory
@@ -426,8 +426,8 @@ class CmdInterpreter(Cmd):
         '''Stop the spinner if it is already running'''
         if self._api.is_spinner_running():
             self._api.spinner_stop('Some error has occured')
-
-        self.say("Goodbye, see you later!", Fore.RED)
+        quotes = ['As always sir, a great pleasure watching you work', 'Test complete. Preparing to power down and begin diagnostics...']
+        self.say(random.choice(quotes), Fore.RED)
         self.scheduler.stop_all()
         sys.exit()
 

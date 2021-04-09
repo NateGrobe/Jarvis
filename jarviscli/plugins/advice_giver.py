@@ -4,6 +4,9 @@ import random
 
 @plugin("give me advice")
 def advice(jarvis, s):
+    """
+    Takes in a string, checks if its a question and returns a random response to the question.
+    """ 
     answers = [
         "No",
         "Yes",
@@ -32,11 +35,13 @@ def advice(jarvis, s):
 
     jarvis.say(greetings)
 
+    # validate question
     while True:
         question = input("Ask Me A Question: ").strip()
         if len(question) > 0 and question[-1] == '?':
             break
 
+    # continue giving different answers until one makes sense.
     in_context = False
     while not in_context:
         # this line can generate an out of bound index
