@@ -40,8 +40,8 @@ class Matrix:
             print(matrix[i])
 
     def sum(self, matrix1, matrix2, row, col):
-        for i in range(row):
-            for j in range(col):
+        for i in range(0, row):
+            for j in range(0, col):
                 matrix1[i][j] += matrix2[i][j]
         return matrix1
     
