@@ -65,7 +65,7 @@ def get_lyric(singer, song):
     API = AZlyrics('google', accuracy=0.5)
     API.artist = singer
     API.title = song
-    API.getLyrics(save=True)
+    API.getLyrics()
 
     if API.lyrics:
         return API.lyrics
