@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import requests
-import bs4
 from plugin import plugin, require
 from azapi import AZlyrics
 
@@ -30,9 +28,13 @@ class lyrics():
         if info:
             artist = info[0]
             info.pop(0)
-        if not song or not artist:
-            # error if artist or song don't exist
-            return "you forgot to add either song name or artist name"
+
+        if not song:
+            # error if song does not exist
+            return "The song name parameter was incomplete"
+        if not artist:
+            # error if the artist does not exist
+            return "The artist name parameter was incomplete"
         response = get_lyric(artist, song)
         if response:
             return response
