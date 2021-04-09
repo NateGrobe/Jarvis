@@ -22,10 +22,7 @@ class lyrics():
         jarvis.say(self.find(s))
 
     def find(self, s):
-        info = self.parse(s)
-        # TODO: implement find album/song functions
-        # TODO: implement actual searches in case of not knowing the correct
-        # full name of song or artist
+        info = s.split('-')
 
         artist = None
         song = None
@@ -44,13 +41,6 @@ class lyrics():
             return response
         else:
             return "Song or Singer does not exist or the API does not have lyrics"
-
-    @classmethod
-    def parse(self, s):
-        # separate song/artist/album by a -
-        information = s.split('-')
-        return information
-
 
 """
 All credit for this code goes to https://github.com/geekpradd
